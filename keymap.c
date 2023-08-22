@@ -11,18 +11,6 @@
 #define LOCK TD(TAPDANCE_LOCK)
 #define CAPS TD(TAPDANCE_CAPS)
 
-#define CONTEXT A(KC_ENT)
-#define COMPLETE C(KC_SPC)
-#define PRT_WIN A(KC_PSCR)
-#define FIND RCS(KC_F)
-#define TEST RCS(KC_T)
-#define RENAME S(KC_F6)
-#define USAGES A(KC_F7)
-#define FORMAT LCA(KC_L)
-#define HINT C(KC_P)
-#define VSMENU RCS(KC_P)
-#define SNIP SGUI(KC_S)
-
 #define KC_COLEMAK DF(_COLEMAK)
 #define KC_MISC MO(_QWERTY)
 #define KC_SYM MO(_SYMBOL)
@@ -94,6 +82,18 @@
 
 #define CK_PLUS LSFT(KC_B)
 #define CK_BSLS KC_H
+
+#define CONTEXT A(KC_ENT)
+#define COMPLETE C(KC_SPC)
+#define PRT_WIN A(KC_PSCR)
+#define FIND RCS(CK_F)
+#define TEST RCS(CK_T)
+#define RENAME S(KC_F6)
+#define USAGES A(KC_F7)
+#define FORMAT LCA(CK_L)
+#define HINT C(CK_P)
+#define VSMENU RCS(CK_P)
+#define SNIP SGUI(CK_S)
 
 enum custom_keycodes {
   COLEMAK = SAFE_RANGE,
