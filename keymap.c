@@ -83,17 +83,25 @@
 #define CK_PLUS LSFT(KC_B)
 #define CK_BSLS KC_H
 
-#define CONTEXT A(KC_ENT)
 #define COMPLETE C(KC_SPC)
-#define PRT_WIN A(KC_PSCR)
+#define CONTEXT A(KC_ENT)
 #define FIND RCS(CK_F)
+#define VSMENU RCS(CK_P)
 #define TEST RCS(CK_T)
 #define RENAME S(KC_F6)
 #define USAGES A(KC_F7)
 #define FORMAT LCA(CK_L)
 #define HINT C(CK_P)
-#define VSMENU RCS(CK_P)
 #define SNIP SGUI(CK_S)
+
+#define PRT_WIN A(KC_PSCR)
+
+#define FZ_LMS LCAG(KC_LEFT)
+#define FZ_LS LGUI(KC_LEFT)
+#define FZ_RS LGUI(KC_RGHT)
+#define FZ_RMS LCAG(KC_RGHT)
+#define FZ_WM LCAG(CK_1)
+#define FZ_LTP LCAG(CK_2)
 
 enum custom_keycodes {
   COLEMAK = SAFE_RANGE,
@@ -158,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUMBER] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     _______ ,_______ ,_______ ,_______ ,_______ ,_______                            ,_______ ,_______ ,_______ ,_______ ,_______ ,_______
+     _______ ,FZ_LTP  ,FZ_WM   ,_______ ,FZ_LMS  ,FZ_LS                              ,FZ_RS   ,FZ_RMS  ,_______ ,_______ ,_______ ,_______
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
     ,_______ ,CK_1    ,CK_2    ,CK_3    ,CK_4    ,CK_5                               ,CK_6    ,CK_7    ,CK_8    ,CK_9    ,CK_0    ,KC_DEL
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
