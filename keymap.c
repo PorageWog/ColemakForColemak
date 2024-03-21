@@ -1,9 +1,8 @@
 #include QMK_KEYBOARD_H
 
 #define _COLEMAK 0
-#define _QWERTY 1
-#define _SYMBOL 2
-#define _NUMBER 3
+#define _SYMBOL 1
+#define _NUMBER 2
 
 #define ALTENT MT(MOD_LALT, KC_ENT)
 #define SHIFTandENTER S(KC_ENT)
@@ -12,10 +11,8 @@
 #define CAPS TD(TAPDANCE_CAPS)
 
 #define KC_COLEMAK DF(_COLEMAK)
-#define KC_MISC MO(_QWERTY)
 #define KC_SYM MO(_SYMBOL)
 #define KC_NUMS MO(_NUMBER)
-#define KC_QWERT DF(_QWERTY)
 #define KC_COLEM DF(_COLEMAK)
 
 #define CK_1 KC_1
@@ -107,7 +104,6 @@ enum custom_keycodes {
   COLEMAK = SAFE_RANGE,
   LOWER,
   RAISE,
-  FUNCTION,
 };
 
 enum {
@@ -124,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_COLEMAK] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     KC_QWERT,COMPLETE,CONTEXT ,FIND    ,VSMENU  ,TEST                               ,RENAME  ,USAGES  ,_______ ,FORMAT  ,HINT    ,SNIP
+     _______ ,COMPLETE,CONTEXT ,FIND    ,VSMENU  ,TEST                               ,RENAME  ,USAGES  ,_______ ,FORMAT  ,HINT    ,SNIP
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
     ,KC_TAB  ,CK_Q    ,CK_W    ,CK_F    ,CK_P    ,CK_B                               ,CK_J    ,CK_L    ,CK_U    ,CK_Y    ,CK_SCLN ,KC_BSPC
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
@@ -133,20 +129,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ,CK_LBRC ,CK_Z    ,CK_X    ,CK_C    ,CK_D    ,CK_V    ,CK_EQL           ,CK_MINS ,CK_K    ,CK_H    ,CK_COMM ,CK_DOT  ,CK_SLSH ,CK_RBRC
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                    ,KC_LCTL ,ALTENT  ,KC_LSFT                   ,KC_SPC  ,KC_NUMS ,KC_SYM
-                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
-  ),
-
-  [_QWERTY] = LAYOUT(
-  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     KC_COLEM,_______ ,_______ ,_______ ,_______ ,_______                            ,_______ ,_______ ,_______ ,_______ ,_______ ,_______
-  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-    ,_______ ,_______ ,_______ ,KC_E    ,KC_R    ,KC_T                               ,KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,_______
-  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-    ,_______ ,_______ ,KC_S    ,KC_D    ,KC_F    ,_______                            ,KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,_______
-  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    ,_______ ,_______ ,_______ ,_______ ,KC_V    ,KC_B    ,_______          ,_______ ,KC_N    ,KC_M    ,_______ ,_______ ,_______ ,_______
-  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                   ,_______ ,_______ ,_______                   ,_______ ,_______ ,_______
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -195,64 +177,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
-      break;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_SYMBOL);
-        update_tri_layer(_SYMBOL, _NUMBER, _QWERTY);
-      } else {
-        layer_off(_SYMBOL);
-        update_tri_layer(_SYMBOL, _NUMBER, _QWERTY);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_NUMBER);
-        update_tri_layer(_SYMBOL, _NUMBER, _QWERTY);
-      } else {
-        layer_off(_NUMBER);
-        update_tri_layer(_SYMBOL, _NUMBER, _QWERTY);
-      }
-      return false;
-      break;
-    case FUNCTION:
-      if (record->event.pressed) {
-        layer_on(_QWERTY);
-      } else {
-        layer_off(_QWERTY);
-      }
-      return false;
-      break;
-  }
-  return true;
-}
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    }
-    else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
-    }
-    return true;
-}
-
 const rgblight_segment_t PROGMEM colemak_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 12, HSV_OFF}
 );
@@ -263,10 +187,6 @@ const rgblight_segment_t PROGMEM number_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t PROGMEM symbol_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 12, HSV_YELLOW}
 );
-const rgblight_segment_t PROGMEM qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 6, HSV_BLUE},
-    {6, 12, HSV_YELLOW}
-);
 const rgblight_segment_t PROGMEM capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 12, HSV_RED}
 );
@@ -274,7 +194,6 @@ const rgblight_segment_t PROGMEM capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 // Now define the array of layers. Later layers take precedence
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     colemak_layer,
-    qwerty_layer,
     symbol_layer,
     number_layer,
     capslock_layer
@@ -292,7 +211,6 @@ bool led_update_user(led_t led_state) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(_COLEMAK, layer_state_cmp(state, _COLEMAK));
-    rgblight_set_layer_state(_QWERTY, layer_state_cmp(state, _QWERTY));
     rgblight_set_layer_state(_SYMBOL, layer_state_cmp(state, _SYMBOL));
     rgblight_set_layer_state(_NUMBER, layer_state_cmp(state, _NUMBER));
     return state;
